@@ -836,6 +836,23 @@ function Material.Load(Config)
 		end
 	end)
 
+game:GetService("UserInputService").InputBegan:Connect(function(key)
+    if key == Enum.KeyCode.RightShift then
+        Open = not Open
+        TweenService:Create(MainShadow, TweenInfo.new(0.15), {ImageTransparency = 1}):Play()
+        TweenService:Create(MainFrame, TweenInfo.new(0.15), {Size = Open and UDim2.fromOffset(SizeX,SizeY) or UDim2.fromOffset(SizeX,30)}):Play()
+        TweenService:Create(MinimiseButton, TweenInfo.new(0.15), {ImageColor3 = Open and Theme.Minimise or Theme.Maximise}):Play()
+        TweenService:Create(MinimiseShadow, TweenInfo.new(0.15), {ImageColor3 = Open and Theme.MinimiseAccent or Theme.MaximiseAccent}):Play()
+        if Open then
+            wait(0.15)
+            MainFrame.ClipsDescendants = false
+            TweenService:Create(MainShadow, TweenInfo.new(0.15), {ImageTransparency = 0}):Play()
+        else
+            MainFrame.ClipsDescendants = true
+end
+end
+end)
+
 	local Content = Objects.new("Round")
 	Content.Name = "Content"
 	Content.ImageColor3 = Theme.Content
